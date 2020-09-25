@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty</title>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/buefy/dist/buefy.min.css">
+</head>
+<body>
+    <div id="app">
+        <section>
+            <b-tabs v-model="activeTab">
+                <b-tab-item label="Charcaters">
+                    <section>
+                        <b-table :data="characters" :columns="columns"  :selected.sync="value" focusable>
+                        </b-table>
+                    </section>
+                    <div class="container">
+                        <b-button class="button is-medium is-warning" @click="modify" v-if="focus">Modify</b-button>
+                        <b-button class="button is-medium is-primary" @click="add" v-else>Add ++</b-button>
+                        <b-button class="button is-medium is-success" @click="clear" >Clear</b-button>
+                        <b-button class="button is-medium is-danger" @click="Delete">Delete Character</b-button>
+                    </div>
+                    <form>
+                        <b-field grouped>
+                            <b-field label="ID" >
+                                <b-input type="text" v-model="value.id" disabled></b-input>
+                            </b-field>
+                            <b-field label="Name" expanded>
+                                <b-input type="text" v-model="value.name"></b-input>
+                            </b-field>
+                            <b-field label="Gender">
+                                <b-select placeholder="Gender" icon="account" v-model="value.gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="unknown">Unknown</option>
+                                </b-select>
+                            </b-field>
+                        </b-field>
+                        <b-field grouped>
+                            <b-field label="status">
+                                <b-select placeholder="Life Status" v-model="value.status" required>
+                                    <option value="Alive">Alive</option>
+                                    <option value="Dead">Dead</option>
+                                    <option value="unknown">Unknown</option>
+                                </b-select>
+                            </b-field>
+                            <b-field label="Species">
+                                <b-select placeholder="Species" v-model="value.species" required>
+                                    <option value="Human">Human</option>
+                                    <option value="Alien">Alien</option>
+                                </b-select>
+                            </b-field>
+                            <b-field label="Date of creation" expanded>
+                                <b-input type="text" v-model="value.created" disabled></b-input>
+                            </b-field>
+                        </b-field>
+                        <b-field grouped>
+                            <b-field label="Image">
+                                <b-input type="text" v-model="value.image"></b-input>
+                            </b-field>
+                            <b-image :src="value.image" alt="The Buefy Logo" ratio="601by235"></b-image>
+                        </b-field>
+                        <b-field>
+                            <b-select label="Episodes Apearances" multiple>
+                                <option v-for="episode in value.episode" value="episode.episode">{{episode}}</option>
+                            </b-select>
+                        </b-field>
+                    </form>
+                </b-tab-item>
+    
+                <b-tab-item label="Episodes" id="episodes">
+                    <section>
+                        <b-table :data="episodes" :columns="E_columns"  :selected.sync="E_value" focusable>
+                        </b-table>
+                    </section>
+                    <form>
+                        <label for="">Name</label>
+                        <input type="text" v-model="E_value.name">
+                        <label for="">Episode</label>
+                        <input type="text" v-model="E_value.episode">
+                        <label for="">characters</label>
+                        <b-select multiple native-size="8" v-model="SelectedCharacters">
+                            <option v-for="characters in E_value.characters">{{characters}}</option>
+                        </b-select>
+                        <label>Air Date</label>
+                        <input type="text" v-model="E_value.air_date">
+                        <label>Created</label>
+                        <input type="text" v-model="E_value.created" disabled>
+                        <label>Id</label>
+                        <input type="text" v-model="E_value.id" disabled>
+                        <label>Url</label>
+                        <input type="text" v-model="E_value.url">
+                        
+                    </form>
+                    <button class="button is-medium is-warning" @click="" v-if="focus">Modify</button>
+                    <button class="button is-medium is-success" @click.prevent="E_add" v-else>Add</button>
+                    <button class="button is-medium is-success" @click="E_clear" >Clear</button>
+                    <button class="button is-medium is-danger" @click="E_Delete">Delete Character</button>
+                </b-tab-item>
+    
+                <b-tab-item  label="Locations">
+                    
+                </b-tab-item>
+            </b-tabs>
+        </section>
+    </div>
+    
+    <!-- Failed Modal
+    <script type="text/template" id="add-modal-template">
+        <form action="">
+            <div class="modal-card" style="width: auto">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Add Character</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="$emit('close')">
+                </header>
+                <section class="modal-card-body">
+                    <b-field label="Name">
+                        <b-input
+                            type="name"
+                            v-model="name"
+                            placeholder="Name of the character"
+                            required>
+                        </b-input>
+                    </b-field>
+                    <b-field label="status">
+                        <b-select
+                        placeholder="Small"
+                        size="is-small"
+                        expanded>
+                            <option value="Alive">Alive</option>
+                            <option value="Dead">Dead</option>
+                            <option value="Unknow">Unknown</option>
+                    </b-select>
+                    </b-field>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button" type="button" @click="$emit('close')">Close</button>
+                    <button class="button is-primary" @click="add()">Add</button>
+                </footer>
+            </div>
+        </form>
+    </script>-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
+    <script src="../../js/Tutoriales/index.js"></script>
+</body>
+</html>
