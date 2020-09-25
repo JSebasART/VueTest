@@ -1,0 +1,23 @@
+{
+  "name": "Monsters",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-css":"tailwindcss build src/styles.css -o css/index.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSebasART/VueTest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JSebasART/VueTest/issues"
+  },
+  "homepage": "https://github.com/JSebasART/VueTest#readme",
+  "dependencies": {
+    "tailwindcss": "^1.8.10"
+  }
+}
