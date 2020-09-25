@@ -58,13 +58,13 @@
                             </b-field>
                         </b-field>
                         <b-field grouped>
-                            <b-field label="Image">
+                            <b-field label="Image" expanded>
                                 <b-input type="text" v-model="value.image"></b-input>
                             </b-field>
-                            <b-image :src="value.image" alt="The Buefy Logo" ratio="601by235"></b-image>
-                        </b-field>
-                        <b-field>
-                            <b-select label="Episodes Apearances" multiple>
+                                <image :src="value.image"></b-image>
+                            </b-field>
+                        <b-field label="Episodes Apearances">
+                            <b-select multiple expanded>
                                 <option v-for="episode in value.episode" value="episode.episode">{{episode}}</option>
                             </b-select>
                         </b-field>
@@ -77,24 +77,43 @@
                         </b-table>
                     </section>
                     <form>
-                        <label for="">Name</label>
-                        <input type="text" v-model="E_value.name">
-                        <label for="">Episode</label>
-                        <input type="text" v-model="E_value.episode">
-                        <label for="">characters</label>
-                        <b-select multiple native-size="8" v-model="SelectedCharacters">
-                            <option v-for="characters in E_value.characters">{{characters}}</option>
-                        </b-select>
+                        <b-field grouped>
+                            <b-field label="ID" >
+                                <b-input type="text" v-model="E_value.id" disabled></b-input>
+                            </b-field>
+                            <b-field label="Name" expanded>
+                                <b-input type="text" v-model="E_value.name"></b-input>
+                            </b-field>
+                            <b-field label="Episode" expanded>
+                                <b-input type="text" v-model="E_value.episode"></b-input>
+                            </b-field>
+                        </b-field>
+                        <b-field label="Characters Apearances">
+                            <b-select multiple v-model="SelectedCharacters">
+                                <option v-for="characters in E_value.characters">{{characters}}</option>
+                            </b-select>
+                        </b-field>
+                        <b-field grouped>
+                            <b-field label="Air Date" expanded>
+                                <b-input type="text" v-model="E_value.air_date"></b-input>
+                            </b-field>
+                            <b-field label="Created" expanded>
+                                <b-input type="text" v-model="E_value.created" disabled></b-input>
+                            </b-field>
+                            <b-field label="Url">
+                                <b-input type="text" v-model="E_value.url"></b-input>
+                            </b-field>
+                        </b-field>
+                        
                         <label>Air Date</label>
                         <input type="text" v-model="E_value.air_date">
                         <label>Created</label>
                         <input type="text" v-model="E_value.created" disabled>
-                        <label>Id</label>
-                        <input type="text" v-model="E_value.id" disabled>
                         <label>Url</label>
                         <input type="text" v-model="E_value.url">
                         
                     </form>
+                    <p>arreglart el add esta jodido</p>
                     <button class="button is-medium is-warning" @click="" v-if="focus">Modify</button>
                     <button class="button is-medium is-success" @click.prevent="E_add" v-else>Add</button>
                     <button class="button is-medium is-success" @click="E_clear" >Clear</button>
@@ -102,7 +121,7 @@
                 </b-tab-item>
     
                 <b-tab-item  label="Locations">
-                    
+                    <p>aqui no va haber nada que hueva</p>
                 </b-tab-item>
             </b-tabs>
         </section>
