@@ -116,9 +116,15 @@ var app = new Vue({
         this.focus = true;
       }
     },
+    E_value: function (val) {
+        if (!(val.id === 0)) {
+          this.focus = true;
+        }
+      },
   },
   methods: {
     add() {
+        console.log("entra");
       this.value.id = this.characters.length + 1;
       this.value.created = Date.now();
       this.characters.push(this.value);
@@ -170,6 +176,7 @@ var app = new Vue({
         });
       }
     },
+
     // episodes methods
     E_add() {
       this.E_value.id = this.episodes.length + 1;

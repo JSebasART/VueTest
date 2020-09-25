@@ -17,25 +17,19 @@
                         <b-table :data="characters" :columns="columns"  :selected.sync="value" focusable>
                         </b-table>
                     </section>
-                    <div class="container">
-                        <b-button class="button is-medium is-warning" @click="modify" v-if="focus">Modify</b-button>
-                        <b-button class="button is-medium is-primary" @click="add" v-else>Add ++</b-button>
-                        <b-button class="button is-medium is-success" @click="clear" >Clear</b-button>
-                        <b-button class="button is-medium is-danger" @click="Delete">Delete Character</b-button>
-                    </div>
-                    <form>
+                    <form v-on:submit.prevent="add">
                         <b-field grouped>
                             <b-field label="ID" >
                                 <b-input type="text" v-model="value.id" disabled></b-input>
                             </b-field>
                             <b-field label="Name" expanded>
-                                <b-input type="text" v-model="value.name"></b-input>
+                                <b-input type="text" v-model="value.name" required></b-input>
                             </b-field>
                             <b-field label="Gender">
                                 <b-select placeholder="Gender" icon="account" v-model="value.gender">
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
-                                    <option value="unknown">Unknown</option>
+                                    <option value="unknown" selected>Unknown</option>
                                 </b-select>
                             </b-field>
                         </b-field>
@@ -44,7 +38,7 @@
                                 <b-select placeholder="Life Status" v-model="value.status" required>
                                     <option value="Alive">Alive</option>
                                     <option value="Dead">Dead</option>
-                                    <option value="unknown">Unknown</option>
+                                    <option value="unknown" selected>Unknown</option>
                                 </b-select>
                             </b-field>
                             <b-field label="Species">
@@ -68,6 +62,10 @@
                                 <option v-for="episode in value.episode" value="episode.episode">{{episode}}</option>
                             </b-select>
                         </b-field>
+                        <b-button class="button is-medium is-warning" @click="modify" v-if="focus">Modify</b-button>
+                        <b-button type="submit" class="button is-medium is-primary" native-type v-else>Add ++</b-button>
+                        <b-button class="button is-medium is-success" @click="clear" >Clear</b-button>
+                        <b-button class="button is-medium is-danger" @click="Delete">Delete Character</b-button>
                     </form>
                 </b-tab-item>
     
@@ -76,16 +74,16 @@
                         <b-table :data="episodes" :columns="E_columns"  :selected.sync="E_value" focusable>
                         </b-table>
                     </section>
-                    <form>
+                    <form @submit.prevent="E_add">
                         <b-field grouped>
                             <b-field label="ID" >
                                 <b-input type="text" v-model="E_value.id" disabled></b-input>
                             </b-field>
                             <b-field label="Name" expanded>
-                                <b-input type="text" v-model="E_value.name"></b-input>
+                                <b-input type="text" v-model="E_value.name" required></b-input>
                             </b-field>
                             <b-field label="Episode" expanded>
-                                <b-input type="text" v-model="E_value.episode"></b-input>
+                                <b-input type="text" v-model="E_value.episode"required></b-input>
                             </b-field>
                         </b-field>
                         <b-field label="Characters Apearances">
@@ -94,8 +92,13 @@
                             </b-select>
                         </b-field>
                         <b-field grouped>
-                            <b-field label="Air Date" expanded>
-                                <b-input type="text" v-model="E_value.air_date"></b-input>
+                            <b-field label="Select a date" expanded>
+                                <b-datepicker
+                                    v-model="E_value.air_date"
+                                    placeholder="Click to select..."
+                                    icon="calendar-today"
+                                    trap-focus>
+                                </b-datepicker>
                             </b-field>
                             <b-field label="Created" expanded>
                                 <b-input type="text" v-model="E_value.created" disabled></b-input>
@@ -104,20 +107,11 @@
                                 <b-input type="text" v-model="E_value.url"></b-input>
                             </b-field>
                         </b-field>
-                        
-                        <label>Air Date</label>
-                        <input type="text" v-model="E_value.air_date">
-                        <label>Created</label>
-                        <input type="text" v-model="E_value.created" disabled>
-                        <label>Url</label>
-                        <input type="text" v-model="E_value.url">
-                        
+                        <b-button class="button is-medium is-warning" @click="" v-if="focus">Modify</b-button>
+                        <b-button type="submit" class="button is-medium is-success" native-type v-else>Add</b-button>
+                        <b-button class="button is-medium is-success" @click="E_clear" >Clear</b-button>
+                        <b-button class="button is-medium is-danger" @click="E_Delete">Delete Character</b-button>
                     </form>
-                    <p>arreglart el add esta jodido</p>
-                    <button class="button is-medium is-warning" @click="" v-if="focus">Modify</button>
-                    <button class="button is-medium is-success" @click.prevent="E_add" v-else>Add</button>
-                    <button class="button is-medium is-success" @click="E_clear" >Clear</button>
-                    <button class="button is-medium is-danger" @click="E_Delete">Delete Character</button>
                 </b-tab-item>
     
                 <b-tab-item  label="Locations">
