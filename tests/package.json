@@ -6,13 +6,16 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-css":"tailwindcss build src/styles.css -o css/index.css"
+    "build-css": "tailwindcss build ./src/css/tailwind.css -o public/tailwind.css"
   },
   "dependencies": {
+    "autoprefixer": "^9.8.6",
     "buefy": "^0.9.3",
     "core-js": "^3.6.5",
+    "postcss-cli": "^8.0.0",
     "tailwindcss": "^1.8.10",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-router": "^3.4.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

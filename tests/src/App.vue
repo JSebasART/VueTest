@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <p>{{mesage}}</p>
-    <input type="text" v-model="mesage">
+    <router-view></router-view>
   </div>
 </template>
 
@@ -17,3 +17,4 @@ export default {
   }
 }
 </script>
+
