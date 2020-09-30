@@ -3,11 +3,11 @@ var app = new Vue({
   el: "#app",
   created() {
     fetch("https://rickandmortyapi.com/api/character")
-      .then((respuesta) => respuesta.json())
-      .then(
-        (respuesta) =>
-          (this.characters = respuesta.results.map((character) => character))
-      );
+        .then((respuesta) => respuesta.json())
+        .then(
+          (respuesta) =>
+            (this.characters = respuesta.results. map((character) => character))
+        );
     fetch("https://rickandmortyapi.com/api/location")
       .then((respuesta) => respuesta.json())
       .then(
